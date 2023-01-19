@@ -37,7 +37,7 @@ namespace WebApp4a
             // -----------------------------
             //Agkiz, Added Transient service repo
             builder.Services.AddTransient<IExamRepository, ExamRepository>();
-            builder.Services.AddTransient<IQuestionsRepository, QuestionsRepository>();
+
             // -----------------------------
 
             var app = builder.Build();

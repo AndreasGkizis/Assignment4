@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ModelLibrary.Models;
 using ModelLibrary.Models.Exams;
 using System.Security.Claims;
 using WebApp4a.Data;
-using WebApp4a.Data.Repositories;
 using WebApp4a.GiannisServices;
 
 namespace WebApp4a.Controllers
@@ -16,15 +14,12 @@ namespace WebApp4a.Controllers
         private readonly ApplicationDbContext _context;
         private Service _service;
         private readonly UserManager<AppUser> _userManager;
-        private static CandidateExam _candidateExam;
-        private readonly IExamRepository _examRepository;
 
-        public CandidateExamController(ApplicationDbContext context,UserManager<AppUser> userManager, IExamRepository adminrepository)
+        public CandidateExamController(ApplicationDbContext context,UserManager<AppUser> userManager)
         {
             _context = context;
             _service = new Service(_context);
             _userManager = userManager;
-            _examRepository = adminrepository;
         }
 
         public async Task<IActionResult> Results(CandidateExam candidateExam)
@@ -94,53 +89,9 @@ namespace WebApp4a.Controllers
             {
                 _context.Add(candidateExam);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Exam",candidateExam);
+                return RedirectToAction(nameof(Index));
             }
             return View(candidateExam);
-        }
-
-
-        // Vlasis actions
-
-        /// <summary>
-        /// vmavraganis: Async Task to create the UI for the candidate examination (questions + options)
-        /// </summary>
-        public async Task<IActionResult> Exam(CandidateExam candidateExam)
-        {
-            //Note (vmavraganis): provide CandidateExam from the user selection
-            _candidateExam = candidateExam;
-
-            PopulateDropDownOptions();
-            return View(await _examRepository.GetAllQuestionsAsync(_candidateExam));
-        }
-
-
-        /// <summary>
-        /// vmavraganis: Async Task to get the selected options from the user in each question (true || false)
-        /// </summary>
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> GetAnswers(IEnumerable<string> DropDownOptions)
-        {
-            if (ModelState.IsValid)
-            {
-                var candidateExam = await _examRepository.UpdateCandidateExam(DropDownOptions, _candidateExam);
-
-                return await Task.Run(() => RedirectToAction("Results", "CandidateExam", candidateExam));
-            }
-
-            return await Task.Run(() => RedirectToAction("Exam"));
-        }
-
-        /// <summary>
-        /// vmavraganis: Populates the drop down list with the options 1 to 4 for the user to select one
-        /// </summary>
-        private void PopulateDropDownOptions()
-        {
-            var list = new List<SelectListItem>();
-            for (var i = 1; i < 5; i++)
-                list.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString() });
-            ViewBag.SelectOptions = list;
         }
     }
 }

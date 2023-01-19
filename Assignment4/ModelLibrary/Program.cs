@@ -10,5 +10,6 @@ namespace ModelLibrary
         {
            
         }
+            enum Colors { Red, Orange, Green, Blue, Black };
     }
 }

@@ -17,13 +17,18 @@
     </div>
     @*-------------------------------------------------*@
     <script>
-        ClassicEditor.create(document.querySelector('#mainEditor'))
-            .then(editor => {
-                console.log(editor);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+
+        //CkEditor Version 4
+        CKEDITOR.replace('mainEditor');
+        
+        //CkEDitor Version 5
+        //ClassicEditor.create(document.querySelector('#mainEditor'))
+        //    .then(editor => {
+        //        console.log(editor);
+        //    })
+        //    .catch(error => {
+        //        console.error(error);
+        //    });
     </script>
     @*-------------------------------------------------*@
 
@@ -61,14 +66,22 @@
                     <textarea asp-for="Options[i].Text" id="@optionEditor" class="form-control"></textarea>
                     <span asp-validation-for="Options[i].Text"></span>
                         @*-------------------------------------------------*@
+
+
                         <script>
-                            ClassicEditor.create(document.querySelector('#@optionEditor'))
-                                .then(editor => {
-                                    console.log(editor);
-                                })
-                                .catch(error => {
-                                    console.error(error);
-                                });
+
+                            //CkEditor Version 4
+
+                            CKEDITOR.replace('@optionEditor');
+
+                            //CkEDitor Version 5
+                            //ClassicEditor.create(document.querySelector('#@optionEditor'))
+                            //    .then(editor => {
+                            //        console.log(editor);
+                            //    })
+                            //    .catch(error => {
+                            //        console.error(error);
+                            //    });
                         </script>
                         @*-------------------------------------------------*@
 

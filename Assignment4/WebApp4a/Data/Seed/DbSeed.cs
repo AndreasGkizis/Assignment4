@@ -25,7 +25,7 @@ namespace WebApp4a.Data.Seed
                                 faker.PickRandom(db.Questions.ToList())
                             };
                     db.SaveChanges();
-
+                    
                 };
 
             };
@@ -43,36 +43,5 @@ namespace WebApp4a.Data.Seed
 
             };
         }
-        public static void AddCalculated(ApplicationDbContext db)
-        {
-
-            //if (db.Certificates.Where(c => c.PassingMark == 0))
-            var certs = db.Certificates;
-            for (int j = 1; j < certs.ToList().Count() + 1; j++)
-            {
-                var maxMarksList = certs.Where(i => i.Id == j)
-                    .Include(x => x.Topics)
-                    .ToList();  //.ThenInclude(c => c.)
-                foreach (var item in maxMarksList)
-                {
-                    item.MaxMark = 0;
-                    foreach (var topic in item.Topics)
-                    {
-                        item.MaxMark = item.MaxMark + topic.MaxMarks;
-                    }
-                    //db.SaveChanges();
-                }
-            }
-
-            for (int j = 1; j < certs.ToList().Count() + 1; j++)
-            {
-                var cert = certs.Where(i => i.Id == j).FirstOrDefault();
-                var result = cert.MaxMark * (65 / 100.0);
-                cert.PassingMark = Convert.ToInt32(result);
-            };
-            db.SaveChanges();
-
-        }
     }
-
 }

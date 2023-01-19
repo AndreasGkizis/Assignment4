@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ModelLibrary.Models.Questions.Question>
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("GetAnswers", "Examination", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Questions</th>
+                <th>Option 1</th>
+                <th>Option 2</th>
+                <th>Option 3</th>
+                <th>Option 4</th>
+                <th>Selected Answer</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.Raw(System.Web.HttpUtility.HtmlDecode(item.Text))
+                    </td>
+                    @foreach (var option in item.Options)
+                    {
+                        <td>
+                            @*var counter = 1; // Note (vmavraganis): We use this in case we want a dynamic number of options
+                <p>Option @counter</p>*@
+                            @Html.Raw(System.Web.HttpUtility.HtmlDecode(option.Text))
+                        </td>
+                    }
+                    <td>
+                        @*@Html.DropDownList("DropDownOptions", new SelectList(item.Options,"Correct", "Text"), new { @class = "form-control" })*@
+                        @Html.DropDownList("DropDownOptions", new SelectList(ViewBag.SelectOptions, "Text", "Value"),  new { @class = "form-control" })
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-1">
+            <input type="submit" class="btn btn-primary" value="Save" />
+        </div>
+    </div>
+}

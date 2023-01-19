@@ -25,38 +25,30 @@ namespace WebApp4a.Data.ModelBuilderExtensions
 
             #region // Adding AppUsers
 
-            // Login Details for 0 to 3
-            // user: admin0@gmail.com
-            // pass: Admin0!
-
             List<string> fakeGuids = new List<string>();
             fakeGuids.Add("9407b6e2-f46e-4a79-a725-dfb1e15e2915");
             fakeGuids.Add("be69a4bd-fb90-41dd-b65b-4ff8b619b767");
             fakeGuids.Add("8ca319b2-762d-45e3-8b26-edd6b1f4ba75");
             fakeGuids.Add("f60a904a-aba6-4635-892d-f38919b09896");
             List<AppUser> fakeAppUsers = new List<AppUser>();
-            PasswordHasher<AppUser> passwordHasher = new PasswordHasher<AppUser>();
-
             for (int i = 0; i < fakeGuids.Count; i++)
             {
                 fakeAppUsers.Add(
                     new AppUser()
                     {
                         Id = fakeGuids[i],
-                        UserName = $"admin{i}@gmail.com",
-                        NormalizedUserName = $"admin{i}@gmail.com",
+                        UserName = $"Admin{i}",
                         Email = $"admin{i}@gmail.com",
-                        NormalizedEmail= $"admin{i}@gmail.com",
                         LockoutEnabled = false,
-                        PhoneNumber = "1234567890",
-                        SecurityStamp = Guid.NewGuid().ToString(),
-                        EmailConfirmed = true
-                    }); 
+                        PhoneNumber = "1234567890"
+                    });
+
             }
             for (int j = 0; j < fakeGuids.Count; j++)
             {
-                fakeAppUsers[j].PasswordHash = passwordHasher.HashPassword(fakeAppUsers[j], $"Admin{j}!");
-                fakeAppUsers[j].EmailConfirmed = true;
+                PasswordHasher<AppUser> passwordHasher = new PasswordHasher<AppUser>();
+                passwordHasher.HashPassword(fakeAppUsers[j], "Admin*123");
+
             }
             modelBuilder.Entity<AppUser>().HasData(fakeAppUsers);
 

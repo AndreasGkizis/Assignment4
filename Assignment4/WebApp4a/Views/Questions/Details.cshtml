@@ -12,10 +12,10 @@
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Text)
-
+         
         </dt>
         <dd class="col-sm-10">
-            @Html.Raw(System.Web.HttpUtility.HtmlDecode(Html.DisplayTextFor(model => model.Text)))
+            @Html.Raw(System.Web.HttpUtility.HtmlDecode(Html.DisplayTextFor(model => model.Text) ))
             @*@Html.DisplayFor(model => model.Text)*@
         </dd>
         <dt class="col-sm-2">
@@ -42,22 +42,23 @@
         <hr/>
         <dl class="row">
             <dt class="col-sm-2">
-                @Html.DisplayName(nameof(option.Text))
+            
+                @Html.DisplayName(nameof(option.Text))adasdasd
             </dt>
             <dd class="col-sm-10">
                 @*@option.Text*@
                 @Html.Raw(System.Web.HttpUtility.HtmlDecode(option.Text))
             </dd>
             <dt class="col-sm-2">
-
+                
                 @Html.DisplayName(nameof(option.Correct))
             </dt>
             <dd class="col-sm-10">
-
+               
                 @Html.CheckBox(nameof(option.Correct), option.Correct, new { @disabled = "disabled" })
             </dd>
         </dl>
-        <hr/>
+        <hr />
     }
 </div>
 <div>
