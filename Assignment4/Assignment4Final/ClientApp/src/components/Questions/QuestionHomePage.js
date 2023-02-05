@@ -49,7 +49,7 @@ function Questions()
 
       }
       //--------------------------------------------------
-
+console.log(data);
     return (
 
         <Container fluid="md">

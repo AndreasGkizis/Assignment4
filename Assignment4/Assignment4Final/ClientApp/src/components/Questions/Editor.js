@@ -6,7 +6,7 @@ import EditorPlus from "ckeditor5-classic-plus";
 function Editor(props) {
   return (
     <div>
-      
+
       <CKEditor
         editor={EditorPlus}
         event={props.event}
@@ -27,7 +27,7 @@ function Editor(props) {
                     // console.log(event);
                     // console.log("Inside Editor component");
                     const data = editor.getData();
-                    // console.log(data);
+                    console.log(data);
 
                     name = props.name;
                     // console.log(name);

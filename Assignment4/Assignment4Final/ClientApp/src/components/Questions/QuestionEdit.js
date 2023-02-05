@@ -20,6 +20,8 @@ export default  function QuestionEdit() {
 
     options: [],
   });
+
+  const [options, setOptions] = useState([{}, {}, {}, {}]);
   
   const _params = useParams();
   const params = _params.id;
@@ -32,7 +34,7 @@ export default  function QuestionEdit() {
   const { questionIndex } = location.state;
 //------------------------------------------------//GET ALL TOPICS AND DIFFICULTY LEVELS
 const url = "https://localhost:7196/api/Questions/" + params;
-
+//
   useEffect(() => { 
   axios
     .get(`https://localhost:7196/api/Topics`)
@@ -42,7 +44,7 @@ const url = "https://localhost:7196/api/Questions/" + params;
     .catch((err) => {
       console.error(err.response.data);
     });
-
+//------------------------------------------------//GET DIFFICULTY LEVELS
   axios
     .get(`https://localhost:7196/api/DifficultyLevels`)
     .then((res) => {
@@ -52,18 +54,17 @@ const url = "https://localhost:7196/api/Questions/" + params;
     .catch((err) => {
       console.error(err.response.data);
     });
-
+//------------------------------------------------//GET QUESTION BY ID
     axios
     .get(url )
     .then((response) => {
       setQuestion(response.data.data);
+      setOptions(response.data.data.options);
     });
 
 
 
 }, [url]);
-//-------------------------------------------------GET QUESTION BY ID
-
   //------------------------------------------------HANDLE SUBMIT------------------------------------------------>>>>>>
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -77,19 +78,19 @@ const url = "https://localhost:7196/api/Questions/" + params;
   const handleChange = (event,name,data,questionOptionIndex) =>
    {
      console.log("IN HANDLE CHANGE");
-     console.log(name);
-      //  if(name==="QuestionText")
-      //   {
-      //     console.log("Boom QuestionText")
-      //     setQuestion(...question, {text:data});
-      //   }
+
+       if(name==="QuestionText")
+        {
+          console.log("Inside QuestionText condition")
+          setQuestion(...question, {text:data});
+        }
         // else if(name==="OptionText0")
         // {  
         //   console.log("Boom OptionText0")
           // setQuestion({ ...question , options:[{...question.options[0],text:data}]  });
         
        
-        console.log(question);
+        console.log(options);
  
 
 
@@ -117,7 +118,7 @@ const url = "https://localhost:7196/api/Questions/" + params;
           <Col md={7}>
             <FormGroup required>
               <Form.Label>Questions Text</Form.Label>
-
+               
                            <Editor handleChange={ handleChange } name={"QuestionText"} text={question.text} />
 
             </FormGroup>
@@ -173,26 +174,7 @@ const url = "https://localhost:7196/api/Questions/" + params;
           {/*  DROPDOWN Question OPTIONS */}
         </Row>
 
-                   {/* {  question.options.map((option, index) => 
-                    {
-                  return  (
-                      <Row key={index+"unique"}>
-                        <Col md={7}>
-                          <Form.Group>
-                            <Form.Label>Option {index + 1}</Form.Label>
-                        
-                        <Editor handleChange={handleChange} name={"OptionText"+index} text={option.text} />
-
-                        <p>testing</p>
-                          </Form.Group>
-                        </Col>
-                        <Col>
-                              <Form.Check type={'checkbox'} id={index+1} label={"Is Correct"} 
-                              onChange={(event,index) => handleChange(event,index)} name={"checkbox"+index} checked={option.correct}/> 
-                              </Col>
-                      </Row>)
-                    
-                  })}   */}
+                   
               
 
               <Row key={"unique0"}>
@@ -221,3 +203,37 @@ const url = "https://localhost:7196/api/Questions/" + params;
     </Form>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* {  question.options.map((option, index) => 
+                    {
+                  return  (
+                      <Row key={index+"unique"}>
+                        <Col md={7}>
+                          <Form.Group>
+                            <Form.Label>Option {index + 1}</Form.Label>
+                        
+                        <Editor handleChange={handleChange} name={"OptionText"+index} text={option.text} />
+
+                        <p>testing</p>
+                          </Form.Group>
+                        </Col>
+                        <Col>
+                              <Form.Check type={'checkbox'} id={index+1} label={"Is Correct"} 
+                              onChange={(event,index) => handleChange(event,index)} name={"checkbox"+index} checked={option.correct}/> 
+                              </Col>
+                      </Row>)
+                    
+                  })}   */}
