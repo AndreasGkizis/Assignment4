@@ -11,24 +11,21 @@ function Questions()
 
 
     //---------------------------MODAL ------------------------>>>>>>>>
-    const [modal, setModal] = useState({show:false,index:-1});
+    const [show, setShow] = useState(false);
     
 
 
   const handleClose = (event) => 
   {
     console.log(event);
-    setModal(...modal,{show:false});
+    setShow(false);
 }
 
- 
   const handleShow = (event) =>
   {
     console.log(event.target.name);
-    console.log()
-
-    setModal(modal,{show:true,index:event.target.name});
-}
+    setShow(true);
+  }
 // --------------------------------------------------->>>>>>>>>>>>>>>
 
 
@@ -91,7 +88,7 @@ function Questions()
 
 
 
-                            <Modal show={modal.show} onHide={handleClose}>
+                            <Modal show={show} onHide={handleClose}>
                                         <Modal.Header closeButton>
                                         <Modal.Title>QuestionDelete</Modal.Title>
                                         </Modal.Header>
@@ -101,7 +98,7 @@ function Questions()
                                         <Button variant="secondary" onClick={handleClose}>
                                             Close
                                         </Button>
-                                        <Button variant="primary" onClick={handleClose} name="delete">
+                                        <Button variant="primary" onClick={handleClose}>
                                             Delete
                                         </Button>
                                         </Modal.Footer>

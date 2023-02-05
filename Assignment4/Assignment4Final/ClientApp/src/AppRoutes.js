@@ -55,7 +55,7 @@ const AppRoutes = [
         element: <Questions />
     },
     {
-       path: '/admin/Questions/QuestionEdit',
+       path: '/admin/Questions/QuestionEdit/:id',
        // requireAuth: true,
        element: <QuestionEdit />
     },

@@ -6,6 +6,7 @@ import EditorPlus from "ckeditor5-classic-plus";
 function Editor(props) {
   return (
     <div>
+      
       <CKEditor
         editor={EditorPlus}
         event={props.event}
@@ -17,6 +18,7 @@ function Editor(props) {
         config={{ placeholder: props.placeholderText }}
         onReady={(editor) => {
           /* You can store the "editor" and use when it is needed. */
+          console.log('Editor is ready to use!');
         }}
         // optionId={props.optionId}
 
@@ -30,10 +32,10 @@ function Editor(props) {
                     name = props.name;
                     // console.log(name);
 
-                    // optionId=props.optionId;
-                    // console.log(optionId);
+                //  optionId=props.optionId;
+                //     console.log(optionId);   
 
-                    props.handleChange(event, name, data);
+                    props.handleChange(event, name, data, );
         }}
 
         required
