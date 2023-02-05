@@ -2,7 +2,7 @@ import { Form, Button, Col, Row, FloatingLabel, Stack , Table, Container  } from
 import {React,useState,useEffect} from 'react';
 
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link,NavLink } from 'react-router-dom';
 import Delete from './QuestionDelete';
 import QuestionEdit from './QuestionEdit';
 function Questions()
@@ -15,11 +15,6 @@ function Questions()
         });
       }, []);
    
-    //   console.log("Testing in Questions");
-    //   console.log(data[0]);
-      // resp.data.data[0].options[0].text
-
-
       //--------------------------------------------------
       //filters the text from the raw html 
       function Replace(temp)
@@ -60,8 +55,20 @@ function Questions()
                                                 <td>{item.topic === null ? "No topic selected" : item.topic.name}</td>
 
                                                
+                                                {/* <td><Link  to="/admin/Questions/QuestionEdit"> <Button  onClick={(event) => QuestionEdit(event)} name={index}>Edit</Button></Link> </td> */}
+                                
+                                
 
-                                                <td><Link> <Button  onClick={(event) => QuestionEdit(event)} name={index}>Edit</Button></Link> </td>
+                                                {/* <td>
+                                                    <Link to="/admin/Questions/QuestionEdit">
+                                                        <Button variant='dark' onClick={(event) => QuestionEdit(event)} name={index} custom={"my custom"}>Edit</Button>
+                                                        </Link>
+                                                </td> */}
+                                                <td>
+                                                    <Link to="/admin/Questions/QuestionEdit" state={{questionIndex:item.id}}>
+                                                        <Button variant='dark' >Edit</Button>
+                                                        </Link>
+                                                </td>
 
                                                 <td><Link to=""><Button variant='dark' onClick={(event) => Delete(event)} name={index}>Delete</Button></Link></td>
                                             </tr>

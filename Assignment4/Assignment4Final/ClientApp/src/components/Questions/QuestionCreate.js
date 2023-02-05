@@ -251,7 +251,7 @@ function QuestionCreate() {
           <Col md={7} >
                     <FormGroup required> 
                       <Form.Label>Questions Text</Form.Label>
-                      <Editor handleChange={handleChange} name={"QuestionText"} />
+                      <Editor handleChange={handleChange} name={"QuestionText"} placeholderText="Main Question 's text"/>
                     </FormGroup>
           </Col> 
           {/* DROPDOWN TOPICS */}
